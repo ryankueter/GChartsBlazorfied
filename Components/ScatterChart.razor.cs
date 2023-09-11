@@ -211,14 +211,8 @@ public partial class ScatterChart
         if (Width is not null)
             _options.width = Width;
     }
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // chartType, chartData, chartOptions, elementId, dotNetObjectReference, usedatatable
-            await JSRuntime.InvokeVoidAsync("GoogleChart", "ScatterChart", DataTable is not null ? DataTable!.Build() : ObjectArray, _options, id, objectReference, DataTable is not null ? true : false);
-        }
-    }
 
+    // chartType, chartData, chartOptions, elementId, dotNetObjectReference, usedatatable
+    protected override async Task OnInitializedAsync() => await JSRuntime.InvokeVoidAsync("GoogleChart", "ScatterChart", DataTable is not null ? DataTable!.Build() : ObjectArray, _options, id, objectReference, DataTable is not null ? true : false);
     public void Dispose() => objectReference?.Dispose();
 }

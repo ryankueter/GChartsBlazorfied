@@ -15,17 +15,17 @@ Updated: September, 2023
 GChartsBlazorfied currently provides a limited number of Google Charts, including:
 * Area Chart
 * Bar Chart
-* Column chart
+* Column Chart
 * Histogram
 * Line Chart
-* Pie chart
+* Pie Chart
 * Scatter Chart
 
 ### Setup
 
 #### Google's Loader.js
 
-A copy of the loader.js file used to test this library is included in the source folder.
+Note: A copy of the loader.js file used to test this library is included in the source folder.
 
 ```html
 <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -41,7 +41,7 @@ The classic theme works with all of the charts.
 
 #### Material Themed Charts
 
-Currently, Google's library does not provide the material theme with all charts, nor does it support creating .png images. Supported charts include:
+Currently, Google's library only provides the material theme with the following charts:
 * Bar Chart
 * Line Chart
 * Scatter Chart
@@ -74,7 +74,7 @@ private List<object> ObjectArray = new List<object>
 
 #### DataTable
 
-The DataTable builder is found in the GChartsDataTableBlazorfied library, which provides more advanced functionality, like Html tooltips and bar chart styles. This was made into a separate library so it can be added to a backend service without having to include GChartBlazorfied.
+The DataTable builder is found in the GChartsDataTableBlazorfied library, which provides more advanced functionality including Html tooltips and bar chart styles. This was made into a separate library so it can be added to a backend service without having to include GChartsBlazorfied.
 
 ```csharp
 ///

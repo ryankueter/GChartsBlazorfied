@@ -1,21 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>1.0.1</Version>
+	<Version>1.0.2</Version>
 	<Authors>Ryan A. Kueter</Authors>
 	<Company>Ryan A. Kueter</Company>
 	<Description>GChartsBlazorfied is an easy way for developers to add Google Charts to their Blazor applications using C# and razor.</Description>
 	<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	<RepositoryUrl>https://github.com/ryankueter/GChartsBlazorfied</RepositoryUrl>
 	<PackageProjectUrl>https://github.com/ryankueter/GChartsBlazorfied</PackageProjectUrl>
-	<PackageReleaseNotes>Initial deployment.</PackageReleaseNotes>
+	<PackageReleaseNotes>Made a change to the chart initialization to improve stability and performance.</PackageReleaseNotes>
 	<PackageTags>C#;Google Charts</PackageTags>
-	<AssemblyVersion>1.0.1</AssemblyVersion>
-	<FileVersion>1.0.1</FileVersion>
+	<AssemblyVersion>1.0.2</AssemblyVersion>
+	<FileVersion>1.0.2</FileVersion>
 	<Copyright>Ryan A. Kueter</Copyright>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<RepositoryType>Git</RepositoryType>
