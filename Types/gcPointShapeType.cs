@@ -5,7 +5,7 @@
  */
 namespace GChartsBlazorfied;
 
-public class gcPointShapeType
+public static class gcPointShapeType
 {
     public const string Circle = "circle";
     public const string Triangle = "triangle";

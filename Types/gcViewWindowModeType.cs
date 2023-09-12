@@ -5,7 +5,7 @@
  */
 namespace GChartsBlazorfied;
 
-public class gcViewWindowModeType
+public static class gcViewWindowModeType
 {
     public const string Pretty = "pretty";
     public const string Maximized = "maximized";

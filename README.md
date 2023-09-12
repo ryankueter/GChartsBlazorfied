@@ -5,7 +5,7 @@ Updated: September, 2023
 
 ## About
 
-**GChartsBlazorfied** is a free .NET library, available from the [NuGet Package Manager](https://www.nuget.org/packages/GChartsBlazorfied), is a wrapper for the Google Charts javascript library that enables Blazor developers to configure and provide data to the library using C#.
+**GChartsBlazorfied** is a free .NET library available from the [NuGet Package Manager](https://www.nuget.org/packages/GChartsBlazorfied) that allows Blazor developers to use the Google Charts javascript library using C#.
 
 ### Targets:
 - .NET 7
@@ -25,10 +25,12 @@ GChartsBlazorfied currently provides a limited number of Google Charts, includin
 
 #### Google's Loader.js
 
-Note: A copy of the loader.js file used to test this library is included in the source folder.
+First, you need to reference the [Google Charts](https://developers.google.com/chart) library: 
+
+Note: The loader.js file used to test this library is included in the source folder.
 
 ```html
-<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script rel="prefetch" src="https://www.gstatic.com/charts/loader.js"></script>
 ```
 
 #### Classic Themed Charts
@@ -74,7 +76,7 @@ private List<object> ObjectArray = new List<object>
 
 #### DataTable
 
-The DataTable builder is found in the GChartsDataTableBlazorfied library, which provides more advanced functionality including Html tooltips and bar chart styles. This was made into a separate library so it can be added to a backend service without having to include GChartsBlazorfied.
+The DataTable builder is located in the GChartsDataTableBlazorfied library, which provides more advanced functionality including Html tooltips and bar chart styles. This was made into a separate library so it can be added to a backend service without having to include GChartsBlazorfied.
 
 ```csharp
 ///
@@ -128,12 +130,10 @@ private gcDataTableBuilder GetDataTable()
 
 ### Click Event Handlers
 
-Each chart type also provides click event handlers. The following example includes the OnClick attribute, which specifies the click handler:
+Each chart type also provides click event handlers. The following example includes the OnClick attribute to supply the click handler:
 
 ```csharp
-<BarChart 
-    @ref="chart"
-    GetImage="true"
+<BarChart
     Title="Population of Largest U.S. Cities"
     Style="width: 800px; height: 500px;"
     Colors=@(new gcColors("#2196F3", "#4CAF50"))
@@ -164,7 +164,7 @@ Each chart type also provides click event handlers. The following example includ
 
 ### Configuration Files
 
-Each chart can be configured using the element attributes or the chart options class. The options class enables developer to supply the same configuration to multiple charts. And to override the configuration supplied by the options, you provide configuration using the element attributes:
+Each chart can be configured using the element attributes or the chart options class. The options class enables developer to provide the same configuration to multiple charts. To override the configuration provided by the options, you configure the element attributes:
 
 * Area Chart (AreaChartOptions)
 * Bar Chart (BarChartOptions)
@@ -226,8 +226,7 @@ The following is an example of how you may use the options file:
         .AddFormatter(new gcFormatter { color = "#2196F3", opacity = 0.8, lineWidth = 2 })
         .AddFormatter(new gcFormatter { color = "#4CAF50", opacity = 0.8, lineWidth = 2 })
         .AddFormatter(new gcFormatter { color = "#FFC107", opacity = 0.8, lineWidth = 2 }))
-    Animation=@(new gcAnimation { duration = 500, easing = gcAnimationEasingType.Out, startup = true })
-     />
+    Animation=@(new gcAnimation { duration = 500, easing = gcAnimationEasingType.Out, startup = true }) />
 
 @code {
     private List<object> ObjectArray = new List<object>

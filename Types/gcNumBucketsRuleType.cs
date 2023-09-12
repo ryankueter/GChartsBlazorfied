@@ -5,7 +5,7 @@
  */
 namespace GChartsBlazorfied;
 
-public class gcNumBucketsRuleType
+public static class gcNumBucketsRuleType
 {
     public const string SquareRoot = "sqrt";
     public const string Sturges = "sturges";

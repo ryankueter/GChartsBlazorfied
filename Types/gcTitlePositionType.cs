@@ -5,7 +5,7 @@
  */
 namespace GChartsBlazorfied;
 
-public class gcTitlePositionType
+public static class gcTitlePositionType
 {
     public const string In = "in";
     public const string Out = "out";
