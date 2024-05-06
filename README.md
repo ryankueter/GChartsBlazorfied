@@ -108,38 +108,46 @@ private gcDataTableBuilder GetDataTable() =>
             c.role = gcRole.Tooltip;
             c.P(p => p.html = true);
         })
-        .AddRow()
-            .AddCell("2013")
-            .AddCell(1000)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(400)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(100)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddRow()
-            .AddCell("2014")
-            .AddCell(1170)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(460)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(50)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddRow()
-            .AddCell("2015")
-            .AddCell(660)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(1120)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(20)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddRow()
-            .AddCell("2016")
-            .AddCell(1030)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(540)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(30)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        .AddRow(o =>
+        {
+            o.AddCell("2013");
+            o.AddCell(1000);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(400);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(100);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        })
+        .AddRow(o =>
+        {
+            o.AddCell("2014");
+            o.AddCell(1170);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(460);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(50);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        })
+        .AddRow(o =>
+        {
+            o.AddCell("2015");
+            o.AddCell(660);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(1120);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(20);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        })
+        .AddRow(o =>
+        {
+            o.AddCell("2016");
+            o.AddCell(1030);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(540);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(30);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        });
 ```
 
 ## Additional Features
@@ -526,38 +534,46 @@ private gcDataTableBuilder GetDataTable() =>
             c.role = gcRole.Tooltip;
             c.P(p => p.html = true);
         })
-        .AddRow()
-            .AddCell("2013")
-            .AddCell(1000)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(400)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(100)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddRow()
-            .AddCell("2014")
-            .AddCell(1170)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(460)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(50)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddRow()
-            .AddCell("2015")
-            .AddCell(660)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(1120)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(20)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddRow()
-            .AddCell("2016")
-            .AddCell(1030)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(540)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-            .AddCell(30)
-            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        .AddRow(o =>
+        {
+            o.AddCell("2013");
+            o.AddCell(1000);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(400);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(100);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        })
+        .AddRow(o =>
+        {
+            o.AddCell("2014");
+            o.AddCell(1170);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(460);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(50);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        })
+        .AddRow(o =>
+        {
+            o.AddCell("2015");
+            o.AddCell(660);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(1120);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(20);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        })
+        .AddRow(o =>
+        {
+            o.AddCell("2016");
+            o.AddCell(1030);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(540);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+            o.AddCell(30);
+            o.AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+        });
 }
 ```
 

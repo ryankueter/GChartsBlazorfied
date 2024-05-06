@@ -13,12 +13,12 @@ namespace GChartsBlazorfied;
 public class gcDataTableBuilder
 {
     private List<gcColumn>? Columns { get; set; } = new();
-    private List<gcRow>? Rows { get; set; } = new();
+    private List<List<gcCell>>? Rows { get; set; } = new();
     private gcRow? CurrentRow { get; set; }
     public gcDataTableBuilder()
     {
         Columns = new List<gcColumn>();
-        Rows = new List<gcRow>();
+        Rows = new List<List<gcCell>>();
     }
 
     public gcDataTableBuilder AddColumn(Action<gcColumnOptions> column)
@@ -30,19 +30,12 @@ public class gcDataTableBuilder
         return this;
     }
 
-    public gcDataTableBuilder AddRow()
+    public gcDataTableBuilder AddRow(Action<gcRow> row)
     {
-        CurrentRow = new gcRow();
-        Rows!.Add(CurrentRow);
-        return this;
-    }
-
-    public gcDataTableBuilder AddCell(object? v, string? f = null)
-    {
-        if (CurrentRow is null)
-            return this;
-
-        CurrentRow.Add(new gcCell(v, f));
+        var options = new gcRow();
+        if (row is not null)
+            row(options);
+        Rows!.Add(options.GetCells());
         return this;
     }
 

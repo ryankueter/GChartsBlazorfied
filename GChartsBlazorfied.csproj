@@ -13,9 +13,9 @@
 	<PackageProjectUrl>https://github.com/ryankueter/GChartsBlazorfied</PackageProjectUrl>
 	<PackageReleaseNotes>Major breaking changes to the configuration options on the elements to enable easier and more intuitive configurations. The installation was simplified. The result is a more enjoyable experience, and a faster, more maintainable, and more extendable package that is less likely to break in the future.</PackageReleaseNotes>
 	<PackageTags>C#;Google Maps;Geo Charts;Google Charts</PackageTags>
-	<Version>1.1.3</Version>
-	<AssemblyVersion>1.1.3</AssemblyVersion>
-	<FileVersion>1.1.3</FileVersion>
+	<Version>1.1.4</Version>
+	<AssemblyVersion>1.1.4</AssemblyVersion>
+	<FileVersion>1.1.4</FileVersion>
 	<RepositoryType>Git</RepositoryType>
 	<Product>$(AssemblyName)</Product>
 	<NeutralLanguage>en</NeutralLanguage>

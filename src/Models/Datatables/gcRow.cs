@@ -5,4 +5,13 @@
  */
 namespace GChartsBlazorfied;
 
-public class gcRow : List<gcCell> { }
+//public class gcRow : List<gcCell> { }
+public class gcRow
+{
+    private List<gcCell> _cells = new();
+    internal List<gcCell> GetCells() => _cells;
+    public void AddCell(object? v, string? f = null)
+    {
+        _cells.Add(new gcCell(v, f));
+    }
+}
