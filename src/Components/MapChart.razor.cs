@@ -22,7 +22,10 @@ public partial class MapChart
 	[Inject]
 	private IJSRuntime JSRuntime { get; set; } = null!;
 
-	[Parameter]
+    [Parameter]
+    public string? ApiKey { get; set; }
+
+    [Parameter]
 	public string? Style { get; set; }
 	[Parameter]
 	public IEnumerable<object>? ObjectArray { get; set; }
@@ -33,7 +36,7 @@ public partial class MapChart
 	[Parameter]
 	public Action<MapChartOptions>? Options { get; set; }
 	private MapChartOptions? _options { get; set; } = new();
-	private MapSettings? _settings { get; set; } = new();
+	private MapChartSettings? _settings { get; set; } = new();
 
     #region Click Event
     private DotNetObjectReference<MapChart>? objectReference;
@@ -47,11 +50,6 @@ public partial class MapChart
 
     protected override void OnInitialized()
     {
-        if (GChartsSettings.ApiKey is null)
-        {
-            throw new Exception("The api key is missing. The <GMapsInitialize /> tag may need to be added with the Api key and language.");
-        }
-
         // Invoke the Options
         if (Options is not null)
         {
@@ -68,7 +66,7 @@ public partial class MapChart
         if (firstRender)
         {
             // chartType, chartData, chartOptions, elementId, dotNetObjectReference, usedatatable, ApiKey, UseMaterialTheme
-            await JSRuntime.InvokeVoidAsync("gcMapChart", DataTable is not null ? DataTable!.Build() : ObjectArray, _settings, id, objectReference, DataTable is not null ? true : false, GChartsSettings.ApiKey, false);
+            await JSRuntime.InvokeVoidAsync("gcMapChart", DataTable is not null ? DataTable!.Build() : ObjectArray, _settings, id, objectReference, DataTable is not null ? true : false, ApiKey, false);
             StateHasChanged();
         }
     }

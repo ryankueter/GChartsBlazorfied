@@ -21,7 +21,7 @@ public partial class GeoChart
     private IJSRuntime JSRuntime { get; set; } = null!;
 
     [Parameter]
-    public bool RequiresApiKey { get; set; } = true;
+    public string? ApiKey { get; set; }
 
     [Parameter]
     public string? Style { get; set; }
@@ -47,11 +47,6 @@ public partial class GeoChart
 
     protected override void OnInitialized()
     {
-        if (RequiresApiKey = true && GChartsSettings.ApiKey is null)
-        {
-            throw new Exception("The api key is missing. The <GMapsInitialize /> tag may need to be added with the Api key and language.");
-        }
-
         // Invoke the Options
         if (Options is not null)
         {
@@ -68,7 +63,7 @@ public partial class GeoChart
         if (firstRender)
         {
             // chartData, chartOptions, elementId, dotNetObjectReference, usedatatable, apikey, materialTheme
-            await JSRuntime.InvokeVoidAsync("gcGeoChart", DataTable is not null ? DataTable!.Build() : ObjectArray, _settings, id, objectReference, DataTable is not null ? true : false, RequiresApiKey is true ? GChartsSettings.ApiKey : null, false);
+            await JSRuntime.InvokeVoidAsync("gcGeoChart", DataTable is not null ? DataTable!.Build() : ObjectArray, _settings, id, objectReference, DataTable is not null ? true : false, ApiKey, false);
             StateHasChanged();
         }
     }

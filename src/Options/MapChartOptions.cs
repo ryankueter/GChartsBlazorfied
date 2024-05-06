@@ -5,8 +5,8 @@ namespace GChartsBlazorfied.Options;
 
 public class MapChartOptions : IMapChartOptions
 {
-    private MapSettings _settings = new();
-    internal MapSettings ReturnSettings() => _settings;
+    private MapChartSettings _settings = new();
+    internal MapChartSettings ReturnSettings() => _settings;
     public bool showTooltip
     {
         set

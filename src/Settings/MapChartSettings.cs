@@ -1,7 +1,7 @@
 ﻿using GChartsBlazorfied.Models;
 namespace GChartsBlazorfied.Settings;
 
-public class MapSettings
+public class MapChartSettings
 {
     public string? mapType { get; set; } = gcMapType.hybrid;
     public double? zoomLevel { get; set; }

@@ -308,6 +308,7 @@ To use maps, a single instance of GMapsInitialize element needs to added to the 
 <MapChart 
     ObjectArray="MapData" 
     Style="height: 500px; width: 900px;" 
+    ApiKey="YOUR-GOOGLE-MAPS-API-KEY"
     Options="@(o =>
     {
         o.mapType = "styledMap";
@@ -366,14 +367,14 @@ To use maps, a single instance of GMapsInitialize element needs to added to the 
 
 ### Geo Chart Example
 
-Geo Charts may not require a Maps Api Key. And when they don't, the RequiresApiKey="false" attribute turns that requirement off. However, if it requires an Api Key, then a single instance of GMapsInitialize element needs to added to the main page to initialize google maps.
+Geo Charts are similar to maps in that a single instance of GMapsInitialize element needs to added to the main page to initialize google maps.
 
 ```<GMapsInitialize ApiKey="YOUR-GOOGLE-MAPS-API-KEY" Language="en" />```
 
-#### Without Api Key:
+#### Exmaple 1:
 
 ```csharp
-<GeoChart ObjectArray="GeoChartData" RequiresApiKey="false" Style="height: 500px; width: 900px;" />
+<GeoChart ObjectArray="GeoChartData" Style="height: 500px; width: 900px;" />
 
 @code {
 private gcObjectArray GeoChartData =>
@@ -388,12 +389,13 @@ private gcObjectArray GeoChartData =>
 }
 ```
 
-#### With Api Key:
+#### Exmaple 2:
 
 ```csharp
 <GeoChart 
     ObjectArray="GeoChartData" 
     Style="height: 500px; width: 900px;" 
+    ApiKey="YOUR-GOOGLE-MAPS-API-KEY"
     Options="@(o =>
     {
         o.region = "IT";

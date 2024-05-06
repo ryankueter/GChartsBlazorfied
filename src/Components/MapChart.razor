@@ -1,7 +1,12 @@
 ﻿@namespace GChartsBlazorfied
 <script>
-    window.gcMapChart = (chartData, chartOptions, elementId, dotNetObjectReference, usedatatable, apikey, materialTheme) => {
-        google.charts.load('current', { packages: ['map'], mapsApiKey: apikey });
+    window.gcMapChart = (chartData, chartOptions, elementId, dotNetObjectReference, usedatatable, apikey, materialTheme) => {      
+        if (apikey != null) {
+            google.charts.load('current', { packages: ['map'], mapsApiKey: apikey });
+        }
+        else {
+            google.charts.load('current', { packages: ['map'] });
+        }
         google.charts.setOnLoadCallback(() => {
 
             let data;
