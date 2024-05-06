@@ -1,7 +1,7 @@
 # GChartsBlazorfied
 
 Author: Ryan Kueter  
-Updated: November, 2023
+Updated: May, 2024
 
 ## About
 
