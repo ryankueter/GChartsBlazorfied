@@ -53,7 +53,7 @@ GChartsBlazorfied provides a couple of built in classes for loading data:
 ### ObjectArray
 ```csharp
 ///
-/// Example object array for an area chart:
+/// Example object array:
 ///
 private gcObjectArray GeoChartData =>
     new gcObjectArray()
@@ -77,7 +77,7 @@ The DataTable builder is located in the GChartsDataTableBlazorfied library and p
 
 ```csharp
 ///
-/// Example DataTable for an area chart:
+/// Example DataTable:
 ///
 private gcDataTableBuilder GetDataTable() =>
     new gcDataTableBuilder()
