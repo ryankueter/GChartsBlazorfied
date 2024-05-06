@@ -8,7 +8,7 @@
 	<Authors>Ryan A. Kueter</Authors>
 	<Company>Ryan A. Kueter</Company>
 	<Copyright>Ryan A. Kueter</Copyright>
-	<Description>GChartsBlazorfied is an easy way for developers to add Google Charts to their Blazor applications using C# and razor.</Description>
+	<Description>GChartsBlazorfied is an easy way for developers to add Google Maps, Geo Charts, or other Google Charts to their Blazor applications using C# and razor.</Description>
 	<RepositoryUrl>https://github.com/ryankueter/GChartsBlazorfied</RepositoryUrl>
 	<PackageProjectUrl>https://github.com/ryankueter/GChartsBlazorfied</PackageProjectUrl>
 	<PackageReleaseNotes>Major breaking changes to the configuration options on the elements to enable easier and more intuitive configurations. The installation was simplified. The result is a more enjoyable experience, and a faster, more maintainable, and more extendable package that is less likely to break in the future.</PackageReleaseNotes>
