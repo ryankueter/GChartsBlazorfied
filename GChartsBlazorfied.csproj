@@ -11,11 +11,11 @@
 	<Description>GChartsBlazorfied is an easy way for developers to add Google Charts to their Blazor applications using C# and razor.</Description>
 	<RepositoryUrl>https://github.com/ryankueter/GChartsBlazorfied</RepositoryUrl>
 	<PackageProjectUrl>https://github.com/ryankueter/GChartsBlazorfied</PackageProjectUrl>
-	<PackageReleaseNotes>Added .NET 8 Target.</PackageReleaseNotes>
-	<PackageTags>C#;Google Charts</PackageTags>
-	<Version>1.0.4</Version>
-	<AssemblyVersion>1.0.4</AssemblyVersion>
-	<FileVersion>1.0.4</FileVersion>
+	<PackageReleaseNotes>Major breaking changes to the configuration options on the elements to enable easier and more intuitive configurations. The installation was simplified. The result is a more enjoyable experience, and a faster, more maintainable, and more extendable package that is less likely to break in the future.</PackageReleaseNotes>
+	<PackageTags>C#;Google Maps;Geo Charts;Google Charts</PackageTags>
+	<Version>1.1.1</Version>
+	<AssemblyVersion>1.1.1</AssemblyVersion>
+	<FileVersion>1.1.1</FileVersion>
 	<RepositoryType>Git</RepositoryType>
 	<Product>$(AssemblyName)</Product>
 	<NeutralLanguage>en</NeutralLanguage>
@@ -25,22 +25,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\js\**" />
+    <Content Remove="wwwroot\js\**" />
+    <EmbeddedResource Remove="wwwroot\js\**" />
+    <None Remove="wwwroot\js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-
+	
   <ItemGroup>
-    <PackageReference Include="GChartsDataTableBlazorfied" Version="1.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.10" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\js\gcharts_blazorfied_material.js" />
-    <None Include="wwwroot\js\gcharts_blazorfied_classic.js" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.10" Condition="'$(TargetFramework)' == 'net7.0'" />
+	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" Condition="'$(TargetFramework)' == 'net8.0'" />
   </ItemGroup>
 
   <ItemGroup>
 	<None Include="LICENSE" Pack="true" PackagePath="" />
 	<None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

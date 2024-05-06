@@ -1,0 +1,42 @@
+﻿@namespace GChartsBlazorfied
+<script>
+    window.gcHistogramChart = (chartData, chartOptions, elementId, dotNetObjectReference, usedatatable, materialTheme) => {
+
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(() => {
+
+            let data;
+            if (usedatatable) {
+                data = new google.visualization.DataTable(chartData)
+            }
+            else {
+                data = google.visualization.arrayToDataTable(chartData);
+            }
+
+            let chart = new google.visualization.Histogram(document.getElementById(elementId));
+
+            // Adds the click event handler.
+            if (dotNetObjectReference != null) {
+                google.visualization.events.addListener(chart, 'select', function () {
+                    var selection = chart.getSelection();
+                    if (selection.length > 0) {
+                        var row = selection[0].row;
+                        var column = selection[0].column;
+                        if (row != null && column != null) {
+                            dotNetObjectReference.invokeMethodAsync('ClickEvent', row, column);
+                        }
+                    }
+                });
+            }
+
+            // Clears the selection when using the Trigger = "both" option
+            // This keeps the tooltip open while it can still be closed.
+            google.visualization.events.addListener(chart, "onmouseover", function (event) {
+                chart.setSelection(null);
+            });
+
+            chart.draw(data, chartOptions);
+        });
+    };
+</script>
+<div id="@id" style="@Style"></div>

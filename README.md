@@ -5,7 +5,7 @@ Updated: November, 2023
 
 ## About
 
-**GChartsBlazorfied** is a free .NET library available from the [NuGet Package Manager](https://www.nuget.org/packages/GChartsBlazorfied) that allows Blazor developers to use the Google Charts javascript library using C#.
+**GChartsBlazorfied** is a free .NET library available from the [NuGet Package Manager](https://www.nuget.org/packages/GChartsBlazorfied) that allows Blazor developers to easily add Google Maps, Geo Charts, and other popular charts from the Google Charts javascript library using C#.
 
 ### Targets:
 - .NET 7, .NET 8
@@ -13,6 +13,8 @@ Updated: November, 2023
 ## Introduction
 
 GChartsBlazorfied currently provides a limited number of Google Charts, including:
+* Google Maps
+* Geo Charts
 * Area Chart
 * Bar Chart
 * Column Chart
@@ -21,9 +23,9 @@ GChartsBlazorfied currently provides a limited number of Google Charts, includin
 * Pie Chart
 * Scatter Chart
 
-### Setup
+## Setup
 
-#### Google's Loader.js
+### Step 1: Reference Google's Loader.js
 
 First, you need to reference the [Google Charts](https://developers.google.com/chart) library: 
 
@@ -33,15 +35,116 @@ Note: The loader.js file used to test this library is included in the source fol
 <script rel="prefetch" src="https://www.gstatic.com/charts/loader.js"></script>
 ```
 
-#### Classic Themed Charts
+### Step 2: Install GChartsBlazorfied
+* [https://www.nuget.org/packages/GChartsBlazorfied](https://www.nuget.org/packages/GChartsBlazorfied)
 
-The classic theme works with all of the charts.
+### Step 3: Google Maps Initialization
 
-```html
-<script src="_content/GChartsBlazorfied/js/gcharts_blazorfied_classic.js"></script>
+Google maps or geo charts require one instance of the ```<GMapsInitialize />``` element somewhere on the main page to initialize google maps, similar to the following:
+
+```<GMapsInitialize ApiKey="YOUR-GOOGLE-MAPS-API-KEY" Language="en" />```
+
+## Data Sources
+
+GChartsBlazorfied provides a couple of built in classes for loading data:
+* ObjectArray
+* DataTable
+
+### ObjectArray
+```csharp
+///
+/// Example object array for an area chart:
+///
+private gcObjectArray GeoChartData =>
+    new gcObjectArray()
+        .AddRow("City", "Population", "Area")
+        .AddRow("Rome", 2761477, 1285.31)
+        .AddRow("Milan", 1324110, 181.76)
+        .AddRow("Naples", 959574, 117.27)
+        .AddRow("Turin", 907563, 130.17)
+        .AddRow("Palermo", 655875, 158.9)
+        .AddRow("Genoa", 607906, 243.60)
+        .AddRow("Bologna", 380181, 140.7)
+        .AddRow("Florence", 371282, 102.41)
+        .AddRow("Fiumicino", 67370, 213.44)
+        .AddRow("Anzio", 52192, 43.43)
+        .AddRow("Ciampino", 38262, 11);
 ```
 
-#### Material Themed Charts
+### DataTable
+
+The DataTable builder is located in the GChartsDataTableBlazorfied library and provides additional functionality including Html tooltips and bar chart styles. This was made into a separate library so it can be added to a backend service without having to include GChartsBlazorfied.
+
+```csharp
+///
+/// Example DataTable for an area chart:
+///
+private gcDataTableBuilder GetDataTable() =>
+    new gcDataTableBuilder()
+        .AddColumn(c =>
+        {
+            c.label = "Year";
+            c.type = gcType.String;
+        })
+        .AddColumn(c =>
+        {
+            c.label = "Sales";
+            c.type = gcType.Number;
+        })
+        .AddColumn(c =>
+        {
+            c.type = gcType.String;
+            c.role = gcRole.Tooltip;
+            c.P(p => p.html = true);
+        })
+        .AddColumn(c =>
+        {
+            c.label = "Expenses";
+            c.type = gcType.Number;
+        })
+        .AddColumn(c =>
+        {
+            c.type = gcType.String;
+            c.role = gcRole.Tooltip;
+            c.P(p => p.html = true);
+        })
+        .AddRow()
+            .AddCell("2013")
+            .AddCell(1000)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(400)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(100)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+        .AddRow()
+            .AddCell("2014")
+            .AddCell(1170)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(460)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(50)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+        .AddRow()
+            .AddCell("2015")
+            .AddCell(660)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(1120)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(20)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+        .AddRow()
+            .AddCell("2016")
+            .AddCell(1030)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(540)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(30)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
+```
+
+## Additional Features
+
+GChartsBlazorfied also provides the ability to add click event handlers. And some google charts provide a material theme. Where provided, that material theme can be used by specifying the UseMaterialTheme = "true" attribute.
 
 Currently, Google's library only provides the material theme with the following charts:
 * Bar Chart
@@ -49,103 +152,62 @@ Currently, Google's library only provides the material theme with the following 
 * Scatter Chart
 * Column Chart
 
-```html
-<script src="_content/GChartsBlazorfied/js/gcharts_blazorfied_material.js"></script>
-```
-
-### Data Sources
-
-For data sources, developers have a couple of options: 
-* Object array
-* DataTable.
-
-#### Object Array
-```csharp
-///
-/// Example object array for an area chart:
-///
-private List<object> ObjectArray = new List<object>
-{
-    new List<object>() { "Year", "Sales", "Expenses", "Losses" },
-    new List<object>() { "2013", 1000, 400, 100 },
-    new List<object>() { "2014", 1170, 460, 50 },
-    new List<object>() { "2015", 660, 1120, 20 },
-    new List<object>() { "2016", 1030, 540, 30 }
-};
-```
-
-#### DataTable
-
-The DataTable builder is located in the GChartsDataTableBlazorfied library, which provides more advanced functionality including Html tooltips and bar chart styles. This was made into a separate library so it can be added to a backend service without having to include GChartsBlazorfied.
-
-```csharp
-///
-/// Example DataTable for an area chart:
-///
-private gcDataTableBuilder GetDataTable()
-{
-    var DataTableBuilder = new gcDataTableBuilder();
-    DataTableBuilder.Columns!.Add(new gcColumn() { label = "Year", type = gcType.String });
-    DataTableBuilder.Columns!.Add(new gcColumn() { label = "Sales", type = gcType.Number });
-    DataTableBuilder.Columns!.Add(new gcColumn() { type = gcType.String, role = gcRole.Tooltip, p = new gcP { html = true } });
-    DataTableBuilder.Columns!.Add(new gcColumn() { label = "Expenses", type = gcType.Number });
-    DataTableBuilder.Columns!.Add(new gcColumn() { type = gcType.String, role = gcRole.Tooltip, p = new gcP { html = true } });
-    DataTableBuilder.Columns!.Add(new gcColumn() { label = "Losses", type = gcType.Number });
-    DataTableBuilder.Columns!.Add(new gcColumn() { type = gcType.String, role = gcRole.Tooltip, p = new gcP { html = true } });
-    DataTableBuilder.AddRow()
-        .AddCell("2013")
-        .AddCell(1000)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddCell(400)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddCell(100)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
-    DataTableBuilder.AddRow()
-        .AddCell("2014")
-        .AddCell(1170)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddCell(460)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddCell(50)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
-    DataTableBuilder.AddRow()
-        .AddCell("2015")
-        .AddCell(660)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddCell(1120)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddCell(20)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
-    DataTableBuilder.AddRow()
-        .AddCell("2016")
-        .AddCell(1030)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddCell(540)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
-        .AddCell(30)
-        .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
-    return DataTableBuilder;
-}
-```
-
 ### Click Event Handlers
 
-Each chart type also provides click event handlers. The following example includes the OnClick attribute to supply the click handler:
+The following example includes the OnClick attribute to supply the click handler:
 
 ```csharp
-<BarChart
+<BarChart 
     Title="Population of Largest U.S. Cities"
     Style="width: 800px; height: 500px;"
-    Colors=@(new gcColors("#2196F3", "#4CAF50"))
     ObjectArray="BarChartObjectArray"
-    HAxis=@(new gcAxis { title = "Total Population", minValue = 0, format = "short", direction = 1, slantedText = true, slantedTextAngle = 30 })
-    VAxis=@(new gcAxis { title = "City", direction = -1, gridlines = new gcGridlines { count = 4 } })
-    Legend=@(new gcLegend { position = "top", maxLines = 3 })
-    Bar=@(new gcBar { groupWidth = "75%" })
-    Annotations=@(new gcAnnotations { alwaysOutside = true, textStyle = new gcTextStyle { fontSize = 14, color = "#000", auraColor = "none" } })
-    Animation=@(new gcAnimation { duration = 500, easing = gcAnimationEasingType.Out, startup = true })
-    Tooltip=@(new gcTooltip { isHtml = true })
-    OnClick="ClickEventHandler" />
+    OnClick="ClickEventHandler"
+    UseMaterialTheme = "true"
+    Options="@(o =>
+    {
+        o.colors("#2196F3", "#4CAF50");
+        o.HAxis(o => 
+        {
+            o.title = "Total Population"; 
+            o.minValue = 0;
+            o.format = "short";
+            o.direction = 1;
+            o.slantedText = true;
+            o.slantedTextAngle = 30;
+        });
+        o.VAxis(o =>
+        {
+            o.title = "City";
+            o.direction = -1;
+            o.Gridlines(o => o.count = 4);
+        });
+        o.Legend(o =>
+        {
+            o.position = "top"; 
+            o.maxLines = 3;
+        });
+        o.Bar(o => o.groupWidth = "75%");
+        o.Annotations(o =>
+        {
+            o.alwaysOutside = true;
+            o.TextStyle(o =>
+            {
+                o.fontSize = 14;
+                o.color = "#000";
+                o.auraColor = "none";
+            });
+        });
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+        o.Tooltip(o =>
+        {
+            o.isHtml = true;
+        });
+    })" />
 
 <h2>Click the chart to view click events:</h2>
 @foreach (var c in ClickEvents)
@@ -155,24 +217,24 @@ Each chart type also provides click event handlers. The following example includ
 
 @code {
     public List<string> ClickEvents = new();
-    private void ClickEventHandler(gcClickEventArgs e)
-    {
+    private void ClickEventHandler(gcClickEventArgs e) =>
         ClickEvents.Add($"Clicked Row: {e.row}, Column: {e.column}");
-    }
 }
 ```
 
-### Configuration Files
+### Configurations
 
-Each chart can be configured using the element attributes or the chart options class. The options class enables developer to provide the same configuration to multiple charts. To override the configuration provided by the options, you configure the element attributes:
+In the example above, the chart is configured with the Optons attribute. Those options may also be decoupled to enable a developer to provide the same configuration to multiple charts with different data.
 
-* Area Chart (AreaChartOptions)
-* Bar Chart (BarChartOptions)
-* Column chart (ColumnChartOptions)
-* Histogram (HistogramChartOptions)
-* Line Chart (LineChartOptions)
-* Pie chart (PieChartOptions)
-* Scatter Chart (ScatterChartOptions)
+* Map Chart (IMapChartOptions)
+* Geo Chart (IGeoChartOptions)
+* Area Chart (IAreaChartOptions)
+* Bar Chart (IBarChartOptions)
+* Column chart (IColumnChartOptions)
+* Histogram (IHistogramChartOptions)
+* Line Chart (ILineChartOptions)
+* Pie chart (IPieChartOptions)
+* Scatter Chart (IScatterChartOptions)
 
 The following is an example of how you may use the options file:
 
@@ -184,59 +246,318 @@ The following is an example of how you may use the options file:
     ObjectArray="ColumnChartObjectArray" />
 
 @code {
-    private ColumnChartOptions GetOptions()
+    public Action<IColumnChartOptions> GetOptions() => (o =>
     {
-        return new ColumnChartOptions
+        o.Bar(o => o.groupWidth = "75%");
+        o.Legend(o => o.position = "bottom");
+        o.VAxis(o =>
         {
-            bar = new gcBar { groupWidth = "75%" },
-            legend = new gcLegend { position = "bottom" },
-            vAxis = new gcAxis { title = "Amount", minValue = 0, maxValue = 1500, format = "#,###" },
-            hAxis = new gcAxis { title = "Year", slantedText = true, slantedTextAngle = 45 },
-            animation = new gcAnimation { duration = 1000, easing = gcAnimationEasingType.Out, startup = true },
-            backgroundColor = new gcBackgroundColor { fill = "#FFFFFF" },
-            enableInteractivity = true,
-            annotations = new gcAnnotations { alwaysOutside = true },
-            axisTitlesPosition = "out",
-            tooltip = new gcTooltip { trigger = "hover", showColorCode = true },
-            colors = new gcColors("#2196F3", "#4CAF50", "#FFC107").GetColors(),
-            isStacked = gcStackType.False
-        };
-    }
+            o.title = "Amount";
+            o.minValue = 0;
+            o.maxValue = 1500;
+            o.format = "#,###";
+        });
+        o.HAxis(o =>
+        {
+            o.title = "Year";
+            o.slantedText = true;
+            o.slantedTextAngle = 45;
+        });
+        o.Animation(o =>
+        {
+            o.duration = 1000;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+        o.BackgroundColor(o =>
+        {
+            o.fill = "#FFFFFF";
+        });
+        o.enableInteractivity = true;
+        o.Annotations(o =>
+        {
+            o.alwaysOutside = true;
+        });
+        o.axisTitlesPosition = "out";
+        o.Tooltip(o =>
+        {
+            o.trigger = "hover";
+            o.showColorCode = true;
+        });
+        o.colors("#2196F3", "#4CAF50", "#FFC107");
+        o.isStacked = gcStackType.False;
+    });
+}
+```
+
+### Map Chart Example
+
+To use maps, a single instance of GMapsInitialize element needs to added to the main page to initialize google maps.
+
+```<GMapsInitialize ApiKey="YOUR-GOOGLE-MAPS-API-KEY" Language="en" />```
+
+```csharp
+<MapChart 
+    ObjectArray="MapData" 
+    Style="height: 500px; width: 900px;" 
+    Options="@(o =>
+    {
+        o.mapType = "styledMap";
+        o.zoomLevel = 12;
+        o.showTooltip = true;
+        o.showInfoWindow = true;
+        o.useMapTypeControl = true;
+        o.Maps(o =>
+        {
+            o.AddMap("styledMap", o =>
+            {
+                o.name = "Styled Map";
+                o.Styles(o =>
+                {
+                    o.AddMapStyle(o =>
+                    {
+                        o.featureType = "poi.attraction";
+                        o.AddStyler(gcStylers.color, "#fce8b2");
+                    });
+                    o.AddMapStyle(o =>
+                    {
+                        o.featureType = "road.highway";
+                        o.AddStyler(gcStylers.hue, "#0277bd");
+                        o.AddStyler(gcStylers.saturation, -50);
+                    });
+                    o.AddMapStyle(o =>
+                    {
+                        o.featureType = "road.highway";
+                        o.elementType = "labels.icon";
+                        o.AddStyler(gcStylers.hue, "#000");
+                        o.AddStyler(gcStylers.saturation, 100);
+                        o.AddStyler(gcStylers.lightness, 50);
+                    });
+                    o.AddMapStyle(o =>
+                    {
+                        o.featureType = "landscape";
+                        o.AddStyler(gcStylers.hue, "#259b24");
+                        o.AddStyler(gcStylers.saturation, 10);
+                        o.AddStyler(gcStylers.lightness, -22);
+                    });
+                });
+            });
+        });
+    })" 
+/>
+
+@code {
+    gcObjectArray MapData =>
+        new gcObjectArray()
+            .AddRow("Address", "Location")
+            .AddRow("Lake Buena Vista, FL 32830, United States", "Walt Disney World")
+            .AddRow("6000 Universal Boulevard, Orlando, FL 32819, United States", "Universal Studios")
+            .AddRow("7007 Sea World Drive, Orlando, FL 32821, United States", "Seaworld Orlando");
+}
+```
+
+### Geo Chart Example
+
+Geo Charts may not require a Maps Api Key. And when they don't, the RequiresApiKey="false" attribute turns that requirement off. However, if it requires an Api Key, then a single instance of GMapsInitialize element needs to added to the main page to initialize google maps.
+
+```<GMapsInitialize ApiKey="YOUR-GOOGLE-MAPS-API-KEY" Language="en" />```
+
+#### Without Api Key:
+
+```csharp
+<GeoChart ObjectArray="GeoChartData" RequiresApiKey="false" Style="height: 500px; width: 900px;" />
+
+@code {
+private gcObjectArray GeoChartData =>
+    new gcObjectArray()
+        .AddRow("Country", "Popularity")
+        .AddRow("Germany", 400)
+        .AddRow("United States", 700)
+        .AddRow("Brazil", 400)
+        .AddRow("Canada", 500)
+        .AddRow("France", 600)
+        .AddRow("RU", 100);
+}
+```
+
+#### With Api Key:
+
+```csharp
+<GeoChart 
+    ObjectArray="GeoChartData" 
+    Style="height: 500px; width: 900px;" 
+    Options="@(o =>
+    {
+        o.region = "IT";
+        o.displayMode = "markers";
+        o.ColorAxis(o =>
+        {
+            o.colors("green", "blue");
+        });
+    })" 
+/>
+
+@code {
+private gcObjectArray GeoChartData =>
+    new gcObjectArray()
+        .AddRow("City", "Population", "Area")
+        .AddRow("Rome", 2761477, 1285.31)
+        .AddRow("Milan", 1324110, 181.76)
+        .AddRow("Naples", 959574, 117.27)
+        .AddRow("Turin", 907563, 130.17)
+        .AddRow("Palermo", 655875, 158.9)
+        .AddRow("Genoa", 607906, 243.60)
+        .AddRow("Bologna", 380181, 140.7)
+        .AddRow("Florence", 371282, 102.41)
+        .AddRow("Fiumicino", 67370, 213.44)
+        .AddRow("Anzio", 52192, 43.43)
+        .AddRow("Ciampino", 38262, 11);
 }
 ```
 
 ### Area Chart
 
+This area chart uses a Datatable. However, an object array may also be used.
+
 ```csharp
 <AreaChart 
     Title="My New Chart"
     Style="width: 800px; height: 500px;"
-    TitleTextStyle=@(new gcTextStyle() { color = "#555555", fontSize = 16 })
+    OnClick="ClickEventHandler"
     DataTable="GetDataTable()"
-    HAxis=@(new gcAxis { title = "Year", textStyle = new gcTextStyle { color = "#330000" }, minValue = 0, maxValue = 5, format = "short" })
-    VAxis=@(new gcAxis { minValue = 0, maxValue = 1200, format = "currency" })
-    IsStacked="@gcStackType.False"
-    PointSize="5"
-    Legend=@(new gcLegend { position = "bottom", alignment = "end" })
-    BackgroundColor=@(new gcBackgroundColor { fill = "#FFFFFF" } )
-    AreaOpacity="0.8"
-    LineWidth="2"
-    Tooltip=@(new gcTooltip { trigger = "both", isHtml = true })
-    Series=@(new gcFormatters()
-        .AddFormatter(new gcFormatter { color = "#2196F3", opacity = 0.8, lineWidth = 2 })
-        .AddFormatter(new gcFormatter { color = "#4CAF50", opacity = 0.8, lineWidth = 2 })
-        .AddFormatter(new gcFormatter { color = "#FFC107", opacity = 0.8, lineWidth = 2 }))
-    Animation=@(new gcAnimation { duration = 500, easing = gcAnimationEasingType.Out, startup = true }) />
+    Options="@(o =>
+    {
+        o.TitleTextStyle(o =>
+        {
+            o.color = "#555555";
+            o.fontSize = 16;
+        });
+        o.HAxis(o =>
+        {
+            o.title = "Year";
+            o.TextStyle(o =>
+            {
+                o.color = "#330000";
+            });
+            o.minValue = 0;
+            o.maxValue = 5;
+            o.format = "short";
+        });
+        o.VAxis(o =>
+        {
+            o.minValue = 0;
+            o.maxValue = 1200;
+            o.format = "currency";
+        });
+        o.Series(o =>
+        {
+            o.AddFormatter(o =>
+            {
+                o.color = "#2196F3";
+                o.opacity = 0.8;
+                o.lineWidth = 2;
+            });
+            o.AddFormatter(o =>
+            {
+                o.color = "#4CAF50";
+                o.opacity = 0.8;
+                o.lineWidth = 2;
+            });
+            o.AddFormatter(o =>
+            {
+                o.color = "#FFC107";
+                o.opacity = 0.8;
+                o.lineWidth = 2;
+            });
+        });
+        o.isStacked = gcStackType.False;
+        o.pointSize = 5;
+        o.Legend(o =>
+        {
+            o.position = "bottom";
+            o.alignment = "end";
+        });
+        o.BackgroundColor(o =>
+        {
+            o.fill = "#FFFFFF";
+        });
+        o.areaOpacity = 0.8;
+        o.lineWidth = 2;
+        o.Tooltip(o =>
+        {
+            o.trigger = "both";
+            o.isHtml = true;
+        });
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+    })" />
 
 @code {
-    private List<object> ObjectArray = new List<object>
-    {
-        new List<object>() { "Year", "Sales", "Expenses", "Losses" },
-        new List<object>() { "2013", 1000, 400, 100 },
-        new List<object>() { "2014", 1170, 460, 50 },
-        new List<object>() { "2015", 660, 1120, 20 },
-        new List<object>() { "2016", 1030, 540, 30 }
-    };
+private gcDataTableBuilder GetDataTable() =>
+    new gcDataTableBuilder()
+        .AddColumn(c =>
+        {
+            c.label = "Year";
+            c.type = gcType.String;
+        })
+        .AddColumn(c =>
+        {
+            c.label = "Sales";
+            c.type = gcType.Number;
+        })
+        .AddColumn(c =>
+        {
+            c.type = gcType.String;
+            c.role = gcRole.Tooltip;
+            c.P(p => p.html = true);
+        })
+        .AddColumn(c =>
+        {
+            c.label = "Expenses";
+            c.type = gcType.Number;
+        })
+        .AddColumn(c =>
+        {
+            c.type = gcType.String;
+            c.role = gcRole.Tooltip;
+            c.P(p => p.html = true);
+        })
+        .AddRow()
+            .AddCell("2013")
+            .AddCell(1000)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(400)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(100)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2013</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+        .AddRow()
+            .AddCell("2014")
+            .AddCell(1170)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(460)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(50)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2014</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+        .AddRow()
+            .AddCell("2015")
+            .AddCell(660)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(1120)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(20)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2015</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+        .AddRow()
+            .AddCell("2016")
+            .AddCell(1030)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(540)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""")
+            .AddCell(30)
+            .AddCell(""""<div style="padding: 10px"><h1>Html Tooltip 2016</h1> <a href="https://developers.google.com/chart">Google Charts</a></div>"""");
 }
 ```
 
@@ -246,24 +567,61 @@ The following is an example of how you may use the options file:
 <BarChart 
     Title="Population of Largest U.S. Cities"
     Style="width: 800px; height: 500px;"
-    Colors=@(new gcColors("#2196F3", "#4CAF50"))
     ObjectArray="BarChartObjectArray"
-    HAxis=@(new gcAxis { title = "Total Population", minValue = 0, format = "short", direction = 1, slantedText = true, slantedTextAngle = 30 })
-    VAxis=@(new gcAxis { title = "City", direction = -1, gridlines = new gcGridlines { count = 4 } })
-    Legend=@(new gcLegend { position = "top", maxLines = 3 })
-    Bar=@(new gcBar { groupWidth = "75%" })
-    Annotations=@(new gcAnnotations { alwaysOutside = true, textStyle = new gcTextStyle { fontSize = 14, color = "#000", auraColor = "none" } })
-    Animation=@(new gcAnimation { duration = 500, easing = gcAnimationEasingType.Out, startup = true })
-    Tooltip=@(new gcTooltip { isHtml = true })
-    OnClick="ClickEventHandler" />
+    OnClick="ClickEventHandler"
+    UseMaterialTheme = "true"
+    Options="@(o =>
+    {
+        o.colors("#2196F3", "#4CAF50");
+        o.HAxis(o => 
+        {
+            o.title = "Total Population"; 
+            o.minValue = 0;
+            o.format = "short";
+            o.direction = 1;
+            o.slantedText = true;
+            o.slantedTextAngle = 30;
+        });
+        o.VAxis(o =>
+        {
+            o.title = "City";
+            o.direction = -1;
+            o.Gridlines(o => o.count = 4);
+        });
+        o.Legend(o =>
+        {
+            o.position = "top"; 
+            o.maxLines = 3;
+        });
+        o.Bar(o => o.groupWidth = "75%");
+        o.Annotations(o =>
+        {
+            o.alwaysOutside = true;
+            o.TextStyle(o =>
+            {
+                o.fontSize = 14;
+                o.color = "#000";
+                o.auraColor = "none";
+            });
+        });
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+        o.Tooltip(o =>
+        {
+            o.isHtml = true;
+        });
+    })" />
 
 @code {
-    private List<object> BarChartObjectArray = new List<object>
-    {
-        new List<object> { "City", "2010 Population", "2000 Population" },
-        new List<object> { "New York City, NY", 8175000, 8008000 },
-        new List<object> { "Los Angeles, CA", 3792000, 3694000 },
-    };
+    private gcObjectArray BarChartObjectArray => 
+        new gcObjectArray()
+            .AddRow("City", "2010 Population", "2000 Population")
+            .AddRow("New York City, NY", 8175000, 8008000)
+            .AddRow("Los Angeles, CA", 3792000, 3694000);
 }
 ```
 
@@ -273,28 +631,58 @@ The following is an example of how you may use the options file:
 <ColumnChart 
     Title="Company Performance"
     Style="width: 800px; height: 500px;"
-    Bar=@(new gcBar { groupWidth = "75%" })
-    Legend=@(new gcLegend { position = "bottom" })
-    VAxis=@(new gcAxis { title = "Amount", minValue = 0, maxValue = 1500, format = "#,###"})
-    HAxis=@(new gcAxis { title = "Year", slantedText = true, slantedTextAngle = 45 })
-    Animation=@(new gcAnimation { duration = 1000, easing = gcAnimationEasingType.Out, startup = true})
-    BackgroundColor="@(new gcBackgroundColor { fill = "#FFFFFF" })"
-    EnableInteractivity="true"
-    Annotations=@(new gcAnnotations { alwaysOutside = true })
-    AxisTitlesPosition="out"
-    Tooltip=@(new gcTooltip { trigger = "hover", showColorCode = true})
-    Colors=@(new gcColors("#2196F3", "#4CAF50", "#FFC107"))
     ObjectArray="ColumnChartObjectArray"
-    IsStacked="@gcStackType.False" />
+    UseMaterialTheme = "true"
+    Options="@(o =>
+    {
+        o.Bar(o => o.groupWidth = "75%");
+        o.Legend(o => o.position = "bottom");
+        o.VAxis(o =>
+        {
+            o.title = "Amount";
+            o.minValue = 0;
+            o.maxValue = 1500;
+            o.format = "#,###";
+        });
+        o.HAxis(o =>
+        {
+            o.title = "Year";
+            o.slantedText = true;
+            o.slantedTextAngle = 45;
+        });
+        o.Animation(o =>
+        {
+            o.duration = 1000;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+        o.BackgroundColor(o =>
+        {
+            o.fill = "#FFFFFF";
+        });
+        o.enableInteractivity = true;
+        o.Annotations(o =>
+        {
+            o.alwaysOutside = true;
+        });
+        o.axisTitlesPosition = "out";
+        o.Tooltip(o =>
+        {
+            o.trigger = "hover";
+            o.showColorCode = true;
+        });
+        o.colors("#2196F3", "#4CAF50", "#FFC107");
+        o.isStacked = gcStackType.False;
+    })" />
 
 @code {
-    private List<object> ColumnChartObjectArray = new List<object> {
-        new List<object> { "Year", "Sales", "Expenses", "Profit" },
-        new List<object> { "2014", 1000, 400, 200 },
-        new List<object> { "2015", 1170, 460, 250 },
-        new List<object> { "2016", 660, 1120, 300 },
-        new List<object> { "2017", 1030, 540, 350 }
-    };
+private gcObjectArray ColumnChartObjectArray => 
+    new gcObjectArray()
+        .AddRow("Year", "Sales", "Expenses", "Profit")
+        .AddRow("2014", 1000, 400, 200)
+        .AddRow("2015", 1170, 460, 250)
+        .AddRow("2016", 660, 1120, 300)
+        .AddRow("2017", 1030, 540, 350);
 }
 ```
 
@@ -304,43 +692,51 @@ The following is an example of how you may use the options file:
 <HistogramChart 
     Title="Country Populations"
     Style="width: 900px; height: 500px;"
-    Legend=@(new gcLegend { position = "none" })
-    Colors=@(new gcColors("#2196F3"))
-    ObjectArray="HistogramChartData" />
+    ObjectArray="HistogramChartData"
+    Options="@(o =>
+    {
+        o.Legend(o => o.position = "none");
+        o.colors("#2196F3");
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+    })" />
 
 @code {
-    private List<object> HistogramChartData = new List<object>
-    {
-        new List<object> { "Dinosaur", "Length" },
-        new List<object> { "Acrocanthosaurus (top-spined lizard)", 12.2 },
-        new List<object> { "Albertosaurus (Alberta lizard)", 9.1 },
-        new List<object> { "Allosaurus (other lizard)", 12.2 },
-        new List<object> { "Apatosaurus (deceptive lizard)", 22.9 },
-        new List<object> { "Archaeopteryx (ancient wing)", 0.9 },
-        new List<object> { "Argentinosaurus (Argentina lizard)", 36.6 },
-        new List<object> { "Baryonyx (heavy claws)", 9.1 },
-        new List<object> { "Brachiosaurus (arm lizard)", 30.5 },
-        new List<object> { "Ceratosaurus (horned lizard)", 6.1 },
-        new List<object> { "Coelophysis (hollow form)", 2.7 },
-        new List<object> { "Compsognathus (elegant jaw)", 0.9 },
-        new List<object> { "Deinonychus (terrible claw)", 2.7 },
-        new List<object> { "Diplodocus (double beam)", 27.1 },
-        new List<object> { "Dromicelomimus (emu mimic)", 3.4 },
-        new List<object> { "Gallimimus (fowl mimic)", 5.5 },
-        new List<object> { "Mamenchisaurus (Mamenchi lizard)", 21.0 },
-        new List<object> { "Megalosaurus (big lizard)", 7.9 },
-        new List<object> { "Microvenator (small hunter)", 1.2 },
-        new List<object> { "Ornithomimus (bird mimic)", 4.6 },
-        new List<object> { "Oviraptor (egg robber)", 1.5 },
-        new List<object> { "Plateosaurus (flat lizard)", 7.9 },
-        new List<object> { "Sauronithoides (narrow-clawed lizard)", 2.0 },
-        new List<object> { "Seismosaurus (tremor lizard)", 45.7 },
-        new List<object> { "Spinosaurus (spiny lizard)", 12.2 },
-        new List<object> { "Supersaurus (super lizard)", 30.5 },
-        new List<object> { "Tyrannosaurus (tyrant lizard)", 15.2 },
-        new List<object> { "Ultrasaurus (ultra lizard)", 30.5 },
-        new List<object> { "Velociraptor (swift robber)", 1.8 }
-    };
+private gcObjectArray HistogramChartData => 
+    new gcObjectArray()
+        .AddRow("Dinosaur", "Length")
+        .AddRow("Acrocanthosaurus (top-spined lizard)", 12.2)
+        .AddRow("Albertosaurus (Alberta lizard)", 9.1)
+        .AddRow("Allosaurus (other lizard)", 12.2)
+        .AddRow("Apatosaurus (deceptive lizard)", 22.9)
+        .AddRow("Archaeopteryx (ancient wing)", 0.9)
+        .AddRow("Argentinosaurus (Argentina lizard)", 36.6)
+        .AddRow("Baryonyx (heavy claws)", 9.1)
+        .AddRow("Brachiosaurus (arm lizard)", 30.5)
+        .AddRow("Ceratosaurus (horned lizard)", 6.1)
+        .AddRow("Coelophysis (hollow form)", 2.7)
+        .AddRow("Compsognathus (elegant jaw)", 0.9)
+        .AddRow("Deinonychus (terrible claw)", 2.7)
+        .AddRow("Diplodocus (double beam)", 27.1)
+        .AddRow("Dromicelomimus (emu mimic)", 3.4)
+        .AddRow("Gallimimus (fowl mimic)", 5.5)
+        .AddRow("Mamenchisaurus (Mamenchi lizard)", 21.0)
+        .AddRow("Megalosaurus (big lizard)", 7.9)
+        .AddRow("Microvenator (small hunter)", 1.2)
+        .AddRow("Ornithomimus (bird mimic)", 4.6)
+        .AddRow("Oviraptor (egg robber)", 1.5)
+        .AddRow("Plateosaurus (flat lizard)", 7.9)
+        .AddRow("Sauronithoides (narrow-clawed lizard)", 2.0)
+        .AddRow("Seismosaurus (tremor lizard)", 45.7)
+        .AddRow("Spinosaurus (spiny lizard)", 12.2)
+        .AddRow("Supersaurus (super lizard)", 30.5)
+        .AddRow("Tyrannosaurus (tyrant lizard)", 15.2)
+        .AddRow("Ultrasaurus (ultra lizard)", 30.5)
+        .AddRow("Velociraptor (swift robber)", 1.8);
 }
 ```
 
@@ -350,28 +746,35 @@ The following is an example of how you may use the options file:
 <LineChart 
     Title="Box Office Earnings in First Two Weeks of Opening"
     Style="width: 800px; height: 500px;"
-    Colors=@(new gcColors("#2196F3", "#4CAF50", "#FFC107"))
-    ObjectArray="LineChartData" />
+    ObjectArray="LineChartData"
+    Options="@(o =>
+    {
+        o.colors("#2196F3", "#4CAF50", "#FFC107");
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+    })" />
 
 @code {
-    private List<object> LineChartData = new List<object>
-    {
-        new List<object> { "Day", "Guardians of the Galaxy", "The Avengers", "Transformers: Age of Extinction" },
-        new List<object> { 1, 37.8, 80.8, 41.8 },
-        new List<object> { 2, 30.9, 69.5, 32.4 },
-        new List<object> { 3, 25.4, 57.0, 25.7 },
-        new List<object> { 4, 11.7, 18.8, 10.5 },
-        new List<object> { 5, 11.9, 17.6, 10.4 },
-        new List<object> { 6, 8.8, 13.6, 7.7 },
-        new List<object> { 7, 7.6, 12.3, 9.6 },
-        new List<object> { 8, 12.3, 29.2, 10.6 },
-        new List<object> { 9, 16.9, 42.9, 14.8 },
-        new List<object> { 10, 12.8, 30.9, 11.6 },
-        new List<object> { 11, 5.3, 7.9, 4.7 },
-        new List<object> { 12, 6.6, 8.4, 5.2 },
-        new List<object> { 13, 4.8, 6.3, 3.6 },
-        new List<object> { 14, 4.2, 6.2, 3.4 }
-    };
+private gcObjectArray LineChartData = new gcObjectArray()
+    .AddRow("Day", "Guardians of the Galaxy", "The Avengers", "Transformers: Age of Extinction")
+    .AddRow(1, 37.8, 80.8, 41.8)
+    .AddRow(2, 30.9, 69.5, 32.4)
+    .AddRow(3, 25.4, 57.0, 25.7)
+    .AddRow(4, 11.7, 18.8, 10.5)
+    .AddRow(5, 11.9, 17.6, 10.4)
+    .AddRow(6, 8.8, 13.6, 7.7)
+    .AddRow(7, 7.6, 12.3, 9.6)
+    .AddRow(8, 12.3, 29.2, 10.6)
+    .AddRow(9, 16.9, 42.9, 14.8)
+    .AddRow(10, 12.8, 30.9, 11.6)
+    .AddRow(11, 5.3, 7.9, 4.7)
+    .AddRow(12, 6.6, 8.4, 5.2)
+    .AddRow(13, 4.8, 6.3, 3.6)
+    .AddRow(14, 4.2, 6.2, 3.4);
 }
 ```
 
@@ -381,35 +784,100 @@ The following is an example of how you may use the options file:
 <LineChart 
     Title="Company Performance"
     Style="width: 800px; height: 500px;"
-    ObjectArray="LineChartData2"
-    CurveType="function" 
-    Legend=@(new gcLegend { position = "bottom" }) 
-    HAxis=@(new gcAxis { title = "Year", format = "short", direction = 1, slantedText = true, slantedTextAngle = 30, textStyle = new gcTextStyle { color = "#333" } })
-    VAxis=@(new gcAxis { title = "Values", direction = 1, gridlines = new gcGridlines { count = 4 }, minValue = 0, maxValue = 1200, format = "$#,###" })
-    PointSize="7"
-    LineWidth="2"
-    Annotations=@(new gcAnnotations { alwaysOutside = true })
-    Crosshair=@(new gcCrosshair { trigger = "both", orientation = "both" })
-    Trendlines=@(new gcFormatters()
-        .AddFormatter(new gcFormatter { type = "exponential", color = "#2196F3", lineWidth = 3, opacity = 0.3 })
-        .AddFormatter(new gcFormatter { type = "linear", color = "#4CAF50", lineWidth = 3, opacity = 0.3 }))
-    Series=@(new gcFormatters()
-        .AddFormatter(new gcFormatter { targetAxisIndex = 0, type = "line", lineDashStyle = new int[] { 4, 4 }, pointsVisible = true, color = "#2196F3" })
-        .AddFormatter(new gcFormatter { targetAxisIndex = 1, type = "line", lineDashStyle = new int[] { 1, 3 }, pointsVisible = true, color = "#4CAF50" }))
-    BackgroundColor="@(new gcBackgroundColor { fill = "#FFFFFF" })"
-    IsStacked="@gcStackType.True"
-    Tooltip=@(new gcTooltip { isHtml = true })
-    FocusTarget="category"
-    Explorer=@(new gcExplorer { actions = new string[] { "dragToZoom", "rightClickToReset" }, axis = "horizontal", keepInBounds = true, maxZoomIn = 0.1 }) />
+    ObjectArray="LineChartData"
+    Options="@(o =>
+    {
+        o.curveType = "function";
+        o.Legend(o => o.position = "bottom");
+        o.HAxis(o =>
+        {
+            o.title = "Year";
+            o.format = "short";
+            o.direction = 1;
+            o.slantedText = true;
+            o.slantedTextAngle = 30;
+            o.TextStyle(o => o.color = "#333");
+        });
+        o.VAxis(o =>
+        {
+            o.title = "Values";
+            o.direction = 1;
+            o.Gridlines(o => o.count = 4);
+            o.minValue = 0;
+            o.maxValue = 1200;
+            o.format = "$#,###";
+        });
+        o.pointSize = 7;
+        o.lineWidth = 2;
+        o.Annotations(o => o.alwaysOutside = true);
+        o.Crosshair(o =>
+        {
+            o.trigger = "both";
+            o.orientation = "both";
+        });
+        o.Trendlines(o =>
+        {
+            o.AddFormatter(o =>
+            {
+                o.type = "exponential";
+                o.color = "#2196F3";
+                o.lineWidth = 3;
+                o.opacity = 0.3;
+            });
+            o.AddFormatter(o =>
+            {
+                o.type = "linear";
+                o.color = "#4CAF50";
+                o.lineWidth = 3;
+                o.opacity = 0.3;
+            });
+        });
+        o.Series(o =>
+        {
+            o.AddFormatter(o =>
+            {
+                o.targetAxisIndex = 0;
+                o.type = "line";
+                o.lineDashStyle(4, 4);
+                o.pointsVisible = true;
+                o.color = "#2196F3";
+            });
+            o.AddFormatter(o =>
+            {
+                o.targetAxisIndex = 1;
+                o.type = "line";
+                o.lineDashStyle(1, 3);
+                o.pointsVisible = true;
+                o.color = "#4CAF50";
+            });
+        });
+        o.BackgroundColor(o => o.fill = "#FFFFFF");
+        o.isStacked = gcStackType.True;
+        o.Tooltip(o => o.isHtml = true);
+        o.focusTarget = "category";
+        o.Explorer(o =>
+        {
+            o.actions("dragToZoom", "rightClickToReset");
+            o.axis = "horizontal";
+            o.keepInBounds = true;
+            o.maxZoomIn = 0.1;
+        });
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+    })" />
 
 @code {
-    private List<object> LineChartData2 = new List<object> {
-        new List<object> {"Year", "Sales", "Expenses"},
-        new List<object> {"2004", 1000, 400},
-        new List<object> {"2005", 1170, 460},
-        new List<object> {"2006", 660, 1120},
-        new List<object> {"2007", 1030, 540},
-    };
+    private gcObjectArray LineChartData2 => 
+        new gcObjectArray()
+            .AddRow("Year", "Sales", "Expenses")
+            .AddRow("2004", 1000, 400)
+            .AddRow("2005", 1170, 460)
+            .AddRow("2006", 660, 1120)
+            .AddRow("2007", 1030, 540);
 }
 ```
 
@@ -419,36 +887,58 @@ The following is an example of how you may use the options file:
 <PieChart 
     Title="My Daily Activities"
     Style="width: 900px; height: 500px;"
-    Is3D="true"
-    PieHole="0.4"
-    Slices=@(new gcFormatters()
-        .AddFormatter(new gcFormatter { color = "#4285f4" })
-        .AddFormatter(new gcFormatter { color = "#0f9d58" })
-        .AddFormatter(new gcFormatter { color = "#f4b400" })
-        .AddFormatter(new gcFormatter { color = "#db4437" })
-        .AddFormatter(new gcFormatter { color = "#1e8e3e" }))
-    Legend=@(new gcLegend { position = gcLegendPositionType.Top, textStyle = new gcTextStyle { color = "blue", fontSize = 16 }})
-    Tooltip=@(new gcTooltip { trigger = "selection", showColorCode = true })
-    BackgroundColor="@(new gcBackgroundColor { fill = "#FFFFFF" })"
-    Animation=@(new gcAnimation { duration = 2000, easing = "out", startup = true })
-    PieStartAngle="100"
-    ReverseCategories="false"
-    SliceVisibilityThreshold="0.01"
-    PieSliceText="percentage"
-    PieSliceBorderColor="#ffffff"
-    EnableInteractivity="true"
-    FocusTarget="category"
-    ObjectArray="PieChartData" />
+    ObjectArray="PieChartData"
+    Options="@(o =>
+    {
+        o.is3D = true;
+        o.pieHole = 0.4;
+        o.Slices(o =>
+        {
+            o.AddFormatter(o => o.color = "#4285f4");
+            o.AddFormatter(o => o.color = "#0f9d58");
+            o.AddFormatter(o => o.color = "#f4b400");
+            o.AddFormatter(o => o.color = "#db4437");
+            o.AddFormatter(o => o.color = "#1e8e3e");
+        });
+        o.Legend(o =>
+        {
+            o.position = gcLegendPositionType.Top;
+            o.TextStyle(o =>
+            {
+                o.color = "blue";
+                o.fontSize = 16;
+            });
+        });
+        o.Tooltip(o =>
+        {
+            o.trigger = "selection";
+            o.showColorCode = true;
+        });
+        o.BackgroundColor(o => o.fill = "#FFFFFF");
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+        o.pieStartAngle = 100;
+        o.reverseCategories = false;
+        o.sliceVisibilityThreshold = 0.01;
+        o.pieSliceText = "percentage";
+        o.pieSliceBorderColor = "#ffffff";
+        o.enableInteractivity = true;
+        o.focusTarget = "category";
+    })" />
 
 @code {
-    private List<object> PieChartData = new List<object> {
-        new List<object> { "Task", "Hours per Day" },
-        new List<object> { "Work", 11 },
-        new List<object> { "Eat", 2 },
-        new List<object> { "Commute", 2 },
-        new List<object> { "Watch TV", 2 },
-        new List<object> { "Sleep", 7 }
-    };
+    private gcObjectArray PieChartData => 
+        new gcObjectArray()
+            .AddRow("Task", "Hours per Day")
+            .AddRow("Work", 11)
+            .AddRow("Eat", 2)
+            .AddRow("Commute", 2)
+            .AddRow("Watch TV", 2)
+            .AddRow("Sleep", 7);
 }
 ```
 
@@ -458,35 +948,57 @@ The following is an example of how you may use the options file:
 <PieChart 
     Title="My Daily Activities"
     Style="width: 900px; height: 500px;"
-    PieHole="0.4"
-    Slices=@(new gcFormatters()
-        .AddFormatter(new gcFormatter { color = "#4285f4" })
-        .AddFormatter(new gcFormatter { color = "#0f9d58" })
-        .AddFormatter(new gcFormatter { color = "#f4b400" })
-        .AddFormatter(new gcFormatter { color = "#db4437" })
-        .AddFormatter(new gcFormatter { color = "#1e8e3e" }))
-          Legend=@(new gcLegend { position = gcLegendPositionType.Top, textStyle = new gcTextStyle { color = "blue", fontSize = 16 } })
-    Tooltip=@(new gcTooltip { trigger = "selection", showColorCode = true })
-    BackgroundColor="@(new gcBackgroundColor { fill = "#FFFFFF" })"
-    Animation=@(new gcAnimation { duration = 2000, easing = "out", startup = true })
-    ReverseCategories="false"
-    SliceVisibilityThreshold="0.01"
-    PieSliceText="percentage"
-    PieSliceBorderColor="#ffffff"
-    PieSliceTextStyle=@(new gcPieSliceTextStyle { color = "black" })
-    EnableInteractivity="true"
-    FocusTarget="category"
-    ObjectArray="DonutChartData" />
+    ObjectArray="DonutChartData"
+    Options="@(o =>
+    {
+        o.pieHole = 0.4;
+        o.Slices(o =>
+        {
+            o.AddFormatter(o => o.color = "#4285f4");
+            o.AddFormatter(o => o.color = "#0f9d58");
+            o.AddFormatter(o => o.color = "#f4b400");
+            o.AddFormatter(o => o.color = "#db4437");
+            o.AddFormatter(o => o.color = "#1e8e3e");
+        });
+        o.Legend(o =>
+        {
+            o.position = gcLegendPositionType.Top;
+            o.TextStyle(o =>
+            {
+                o.color = "blue";
+                o.fontSize = 16;
+            });
+        });
+        o.Tooltip(o =>
+        {
+            o.trigger = "selection";
+            o.showColorCode = true;
+        });
+        o.BackgroundColor(o => o.fill = "#FFFFFF");
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+        o.reverseCategories = false;
+        o.sliceVisibilityThreshold = 0.01;
+        o.pieSliceText = "percentage";
+        o.pieSliceBorderColor = "#ffffff";
+        o.PieSliceTextStyle(o => o.color = "black");
+        o.enableInteractivity = true;
+        o.focusTarget = "category";
+    })" />
 
 @code {
-    private List<object> DonutChartData = new List<object> {
-        new List<object> { "Task", "Hours per Day" },
-        new List<object> { "Work", 11 },
-        new List<object> { "Eat", 2 },
-        new List<object> { "Commute", 2 },
-        new List<object> { "Watch TV", 2 },
-        new List<object> { "Sleep", 7 }
-    };
+private gcObjectArray DonutChartData =>
+    new gcObjectArray()
+        .AddRow("Task", "Hours per Day")
+        .AddRow("Work", 11)
+        .AddRow("Eat", 2)
+        .AddRow("Commute", 2)
+        .AddRow("Watch TV", 2)
+        .AddRow("Sleep", 7);
 }
 ```
 
@@ -497,40 +1009,89 @@ The following is an example of how you may use the options file:
     Title="Indian Language Use"
     Style="width: 900px; height: 500px;"
     ObjectArray="PieChartExplodedData"
-    Legend=@(new gcLegend { position = gcLegendPositionType.Bottom, textStyle = new gcTextStyle { color = "blue", fontSize = 14}})
-    PieSliceText="label"
-    Slices=@(new gcFormatters()
-        .AddFormatter("4", new gcFormatter { offset = 0.2 })
-        .AddFormatter("12", new gcFormatter { offset = 0.3 })
-        .AddFormatter("14", new gcFormatter { offset = 0.4 })
-        .AddFormatter("15", new gcFormatter { offset = 0.5 }))
-    BackgroundColor="@(new gcBackgroundColor { fill = "#FFFFFF" })"
-    Animation=@(new gcAnimation { duration = 2000, easing = "out", startup = true }) 
-    EnableInteractivity="true"
-    SliceVisibilityThreshold="0.01"
-    ReverseCategories="false"
-    Tooltip=@(new gcTooltip { trigger = "selection", showColorCode = true })
-    Is3D="false"
-    PieResidueSliceLabel="Other"
-    PieSliceBorderColor="#ffffff"
-    PieStartAngle="30"
-    FocusTarget="category"
-    Annotations=@(new gcAnnotations { alwaysOutside = true, textStyle = new gcTextStyle { color = "black", fontSize = 12 }})
-    AxisTitlesPosition="out"
-    FontSize="12"
-    FontName="Arial" />
+    Options="@(o =>
+    {
+        o.Legend(o =>
+        {
+            o.position = gcLegendPositionType.Bottom;
+            o.TextStyle(o =>
+            {
+                o.color = "blue";
+                o.fontSize = 14;
+            });
+        });
+        o.pieSliceText = "label";
+
+        o.Slices(o =>
+        {
+            o.AddFormatter("4", o =>  o.offset = 0.2);
+            o.AddFormatter("12", o =>  o.offset = 0.3);
+            o.AddFormatter("14", o =>  o.offset = 0.4);
+            o.AddFormatter("15", o =>  o.offset = 0.5);
+        });
+        o.BackgroundColor(o => o.fill = "#FFFFFF");
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+        o.enableInteractivity = true;
+        o.sliceVisibilityThreshold = 0.01;
+        o.reverseCategories = false;
+        o.Tooltip(o =>
+        {
+            o.trigger = "selection";
+            o.showColorCode = true;
+        });
+        o.is3D = false;
+        o.pieResidueSliceLabel = "Other";
+        o.pieSliceBorderColor = "#ffffff";
+        o.pieStartAngle = 30;
+        o.focusTarget = "category";
+        o.Annotations(o =>
+        {
+            o.alwaysOutside = true;
+            o.TextStyle(o =>
+            {
+                o.color = "black";
+                o.fontSize = 12;
+            });
+        });
+        o.pieSliceText = "percentage";
+        o.pieSliceBorderColor = "#ffffff";
+        o.PieSliceTextStyle(o => o.color = "black");
+        o.axisTitlesPosition = "out";
+        o.fontSize = 12;
+        o.fontName = "Arial";
+    })" />
 
 @code {  
-    private List<object> PieChartExplodedData = new List<object> {
-        new List<object> { "Language", "Speakers (in millions)" },
-        new List<object> { "Assamese", 13 }, new object[] { "Bengali", 83 }, new object[] { "Bodo", 1.4 },
-        new List<object> { "Dogri", 2.3 }, new object[] { "Gujarati", 46 }, new object[] { "Hindi", 300 },
-        new List<object> { "Kannada", 38 }, new object[] { "Kashmiri", 5.5 }, new object[] { "Konkani", 5 },
-        new List<object> { "Maithili", 20 }, new object[] { "Malayalam", 33 }, new object[] { "Manipuri", 1.5 },
-        new List<object> { "Marathi", 72 }, new object[] { "Nepali", 2.9 }, new object[] { "Oriya", 33 },
-        new List<object> { "Punjabi", 29 }, new object[] { "Sanskrit", 0.01 }, new object[] { "Santhali", 6.5 },
-        new List<object> { "Sindhi", 2.5 }, new object[] { "Tamil", 61 }, new object[] { "Telugu", 74 }, new object[] { "Urdu", 52 }
-    };
+    private gcObjectArray PieChartExplodedData =>
+        new gcObjectArray()
+            .AddRow("Language", "Speakers (in millions)")
+            .AddRow("Assamese", 13)
+            .AddRow("Bengali", 83)
+            .AddRow("Bodo", 1.4)
+            .AddRow("Dogri", 2.3)
+            .AddRow("Gujarati", 46)
+            .AddRow("Hindi", 300)
+            .AddRow("Kannada", 38)
+            .AddRow("Kashmiri", 5.5)
+            .AddRow("Konkani", 5)
+            .AddRow("Maithili", 20)
+            .AddRow("Malayalam", 33)
+            .AddRow("Manipuri", 1.5)
+            .AddRow("Marathi", 72)
+            .AddRow("Nepali", 2.9)
+            .AddRow("Oriya", 33)
+            .AddRow("Punjabi", 29)
+            .AddRow("Sanskrit", 0.01)
+            .AddRow("Santhali", 6.5)
+            .AddRow("Sindhi", 2.5)
+            .AddRow("Tamil", 61)
+            .AddRow("Telugu", 74)
+            .AddRow("Urdu", 52);
 }
 ```
 
@@ -540,23 +1101,45 @@ The following is an example of how you may use the options file:
 <ScatterChart 
     Title="Age vs. Weight comparison"
     Style="width: 900px; height: 500px;"
-    Colors=@(new gcColors("#2196F3"))
     ObjectArray="ScatterChartData"
-    HAxis=@(new gcAxis { title = "Age", minValue = 0, maxValue = 15, gridlines = new gcGridlines { count = 8 }, textStyle = new gcTextStyle  { color = "#333" } })
-    VAxis=@(new gcAxis { title = "Weight", minValue = 0, maxValue = 15, gridlines = new gcGridlines { count = 8 }, textStyle = new gcTextStyle { color = "#333" } })
-    PointSize="5" />
+    Options="@(o =>
+    {
+        o.colors("#2196F3");
+        o.HAxis(o =>
+        {
+            o.title = "Age";
+            o.minValue = 0;
+            o.maxValue = 15;
+            o.Gridlines(o => o.count = 8);
+            o.TextStyle(o => o.color = "#333");
+        });
+        o.VAxis(o =>
+        {
+            o.title = "Weight";
+            o.minValue = 0;
+            o.maxValue = 15;
+            o.Gridlines(o => o.count = 8);
+            o.TextStyle(o => o.color = "#333");
+        });
+        o.pointSize = 5;
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+    })" />
 
 @code {
-    private List<object> ScatterChartData = new List<object>
-    {
-        new List<object> { "Age", "Weight" },
-        new List<object> { 8, 12 },
-        new List<object> { 4, 5.5 },
-        new List<object> { 11, 14 },
-        new List<object> { 4, 5 },
-        new List<object> { 3, 3.5 },
-        new List<object> { 6.5, 7 }
-    };
+    private gcObjectArray ScatterChartData => 
+        new gcObjectArray()
+            .AddRow("Age", "Weight")
+            .AddRow(8, 12)
+            .AddRow(4, 5.5)
+            .AddRow(11, 14)
+            .AddRow(4, 5)
+            .AddRow(3, 3.5)
+            .AddRow(6.5, 7);
 }
 ```
 
@@ -566,37 +1149,47 @@ The following is an example of how you may use the options file:
 <ScatterChart 
     Title="Descendants by Generation"
     Style="width: 900px; height: 500px;"
-    Colors=@(new gcColors("#2196F3"))
     ObjectArray="TrendlineChartData"
-    HAxis=@(new gcAxis { title = "Generation", minValue = 0, maxValue = 3 })
-    VAxis=@(new gcAxis { title = "Descendants", minValue = 0, maxValue = 2100 })
-    TrendLines=@(new gcFormatters()
-        .AddFormatter(new gcFormatter { type = gcTrendlineType.Exponential, visibleInLegend = true, color = "#4CAF50" })) />
-
-
+    Options="@(o =>
+    {
+        o.colors("#2196F3");
+        o.HAxis(o =>
+        {
+            o.title = "Generation";
+            o.minValue = 0;
+            o.maxValue = 3;
+        });
+        o.VAxis(o =>
+        {
+            o.title = "Descendants";
+            o.minValue = 0;
+            o.maxValue = 2100;
+        });
+        o.Trendlines(o =>
+        {
+            o.AddFormatter(o =>
+            {
+                o.type = gcTrendlineType.Exponential;
+                o.visibleInLegend = true;
+                o.color = "#4CAF50";
+            });
+        });
+        o.Animation(o =>
+        {
+            o.duration = 500;
+            o.easing = gcAnimationEasingType.Out;
+            o.startup = true;
+        });
+    })" />
 
 @code {
-    private List<object> TrendlineChartData = new List<object>
-    {
-        new List<object> { "Generation", "Descendants" },
-        new List<object> { 0, 1 },
-        new List<object> { 1, 33 },
-        new List<object> { 2, 269 },
-        new List<object> { 3, 2013 }
-    };
-
-    // DataTable Example
-    private gcDataTableBuilder GetDataTable()
-    {
-        var DataTableBuilder = new gcDataTableBuilder();
-        DataTableBuilder.Columns!.Add(new gcColumn() { label = "Generation", type = gcType.Number });
-        DataTableBuilder.Columns!.Add(new gcColumn() { label = "Descendants", type = gcType.Number });
-        DataTableBuilder.AddRow().AddCell(0).AddCell(1);
-        DataTableBuilder.AddRow().AddCell(1).AddCell(33);
-        DataTableBuilder.AddRow().AddCell(2).AddCell(269);
-        DataTableBuilder.AddRow().AddCell(3).AddCell(2013);
-        return DataTableBuilder;
-    }
+    private gcObjectArray TrendlineChartData => new gcObjectArray()
+        .AddRow("Generation", "Descendants")
+        .AddRow(0, 1)
+        .AddRow(1, 33)
+        .AddRow(2, 269)
+        .AddRow(2, 269)
+        .AddRow(3, 2013);
 }
 ```
 

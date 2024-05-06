@@ -1,0 +1,53 @@
+﻿@namespace GChartsBlazorfied
+<script>
+    window.gcScatterChart = (chartData, chartOptions, elementId, dotNetObjectReference, usedatatable, materialTheme) => {
+
+        if (materialTheme == true) {
+            google.charts.load('current', { packages: ['scatter'] });
+        }
+        else {
+            google.charts.load('current', { packages: ['corechart'] });
+        }
+        google.charts.setOnLoadCallback(() => {
+
+            let data;
+            if (usedatatable) {
+                data = new google.visualization.DataTable(chartData)
+            }
+            else {
+                data = google.visualization.arrayToDataTable(chartData);
+            }
+
+            let chart;
+            if (materialTheme == true) {
+                chart = new google.charts.Scatter(document.getElementById(elementId));
+            }
+            else {
+                chart = new google.visualization.ScatterChart(document.getElementById(elementId));
+            }
+
+            // Adds the click event handler.
+            if (dotNetObjectReference != null) {
+                google.visualization.events.addListener(chart, 'select', function () {
+                    var selection = chart.getSelection();
+                    if (selection.length > 0) {
+                        var row = selection[0].row;
+                        var column = selection[0].column;
+                        if (row != null && column != null) {
+                            dotNetObjectReference.invokeMethodAsync('ClickEvent', row, column);
+                        }
+                    }
+                });
+            }
+
+            // Clears the selection when using the Trigger = "both" option
+            // This keeps the tooltip open while it can still be closed.
+            google.visualization.events.addListener(chart, "onmouseover", function (event) {
+                chart.setSelection(null);
+            });
+
+            chart.draw(data, chartOptions);
+        });
+    };
+</script>
+<div id="@id" style="@Style"></div>
