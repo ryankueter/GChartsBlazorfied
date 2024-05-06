@@ -73,7 +73,7 @@ private gcObjectArray GeoChartData =>
 
 ### DataTable
 
-The DataTable builder is located in the GChartsDataTableBlazorfied library and provides additional functionality including Html tooltips and bar chart styles. This was made into a separate library so it can be added to a backend service without having to include GChartsBlazorfied.
+The DataTable builder provides additional functionality including Html tooltips and bar chart styles.
 
 ```csharp
 ///
