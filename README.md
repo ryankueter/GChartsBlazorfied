@@ -379,13 +379,10 @@ Geo Charts are similar to maps in that a single instance of GMapsInitialize elem
 @code {
 private gcObjectArray GeoChartData =>
     new gcObjectArray()
-        .AddRow("Country", "Popularity")
-        .AddRow("Germany", 400)
+        .AddRow("Country", "Familiarity")
         .AddRow("United States", 700)
-        .AddRow("Brazil", 400)
-        .AddRow("Canada", 500)
-        .AddRow("France", 600)
-        .AddRow("RU", 100);
+        .AddRow("Mexico", 500)
+        .AddRow("Canada", 500);
 }
 ```
 
