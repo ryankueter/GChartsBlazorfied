@@ -14,6 +14,6 @@ public partial class GMapsInitialize
         if (ApiKey is null)
             throw new ArgumentNullException("An Api Key is required to use Google Maps.", nameof(ApiKey));
 
-        src = $@"https://maps.googleapis.com/maps/api/js?key={ApiKey}&libraries=drawing&language={Language}";
+        src = $@"https://maps.googleapis.com/maps/api/js?key={ApiKey}&libraries=drawing&language={Language}&loading=async";
     }
 }

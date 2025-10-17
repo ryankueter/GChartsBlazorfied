@@ -1,14 +1,14 @@
 # GChartsBlazorfied
 
 Author: Ryan Kueter  
-Updated: May, 2024
+Updated: December, 2024
 
 ## About
 
 **GChartsBlazorfied** is a free .NET library available from the [NuGet Package Manager](https://www.nuget.org/packages/GChartsBlazorfied) that allows Blazor developers to easily add Google Maps, Geo Charts, and other popular charts from the Google Charts javascript library using C#.
 
 ### Targets:
-- .NET 7, .NET 8
+- .NET 7 - .NET 9
 
 ## Introduction
 
@@ -28,8 +28,6 @@ GChartsBlazorfied currently provides a limited number of Google Charts, includin
 ### Step 1: Reference Google's Loader.js
 
 First, you need to reference the [Google Charts](https://developers.google.com/chart) library: 
-
-Note: The loader.js file used to test this library is included in the source folder.
 
 ```html
 <script rel="prefetch" src="https://www.gstatic.com/charts/loader.js"></script>
