@@ -1,14 +1,14 @@
 # GChartsBlazorfied
 
 Author: Ryan Kueter  
-Updated: December, 2024
+Updated: November, 2025
 
 ## About
 
 **GChartsBlazorfied** is a free .NET library available from the [NuGet Package Manager](https://www.nuget.org/packages/GChartsBlazorfied) that allows Blazor developers to easily add Google Maps, Geo Charts, and other popular charts from the Google Charts javascript library using C#.
 
 ### Targets:
-- .NET 7 - .NET 9
+- .NET 7 - .NET 10
 
 ## Introduction
 

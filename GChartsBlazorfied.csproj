@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -11,11 +11,11 @@
 	<Description>GChartsBlazorfied is an easy way for developers to add Google Maps, Geo Charts, or other Google Charts to their Blazor applications using C# and razor.</Description>
 	<RepositoryUrl>https://github.com/ryankueter/GChartsBlazorfied</RepositoryUrl>
 	<PackageProjectUrl>https://github.com/ryankueter/GChartsBlazorfied</PackageProjectUrl>
-	<PackageReleaseNotes>Added a .NET 9 target.</PackageReleaseNotes>
+	<PackageReleaseNotes>Added a .NET 10 target.</PackageReleaseNotes>
 	<PackageTags>C#;Google Maps;Geo Charts;Google Charts</PackageTags>
-	<Version>1.1.6</Version>
-	<AssemblyVersion>1.1.6</AssemblyVersion>
-	<FileVersion>1.1.6</FileVersion>
+	<Version>1.1.7</Version>
+	<AssemblyVersion>1.1.7</AssemblyVersion>
+	<FileVersion>1.1.7</FileVersion>
 	<RepositoryType>Git</RepositoryType>
 	<Product>$(AssemblyName)</Product>
 	<NeutralLanguage>en</NeutralLanguage>
@@ -39,6 +39,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.10" Condition="'$(TargetFramework)' == 'net7.0'" />
 	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" Condition="'$(TargetFramework)' == 'net8.0'" />
 	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" Condition="'$(TargetFramework)' == 'net9.0'" />
+	<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.0" Condition="'$(TargetFramework)' == 'net10.0'" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,4 +69,9 @@
     </PackageReference>
   </ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components">
+			<Version>10.0.0</Version>
+		</PackageReference>
+	</ItemGroup>
 </Project>
